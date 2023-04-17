@@ -9,12 +9,16 @@ import {
   Radio,
   RadioGroup,
 } from '@mui/material';
+import Cookies from 'js-cookie';
 
 const ThemeChangerPage = () => {
   const [currentTheme, setCurrentTheme] = useState('light');
 
   const onThemeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setCurrentTheme(event.target.value);
+    const selectedTheme = event.target.value;
+    setCurrentTheme(selectedTheme);
+    localStorage.setItem('theme', selectedTheme); //5MB
+    Cookies.set('theme', selectedTheme); //4Kb - AutoSend to server in requestTime.
   };
 
   return (
