@@ -1,0 +1,26 @@
+{
+  "name": "cookie-master-next",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@nextui-org/react": "1.0.2-beta.2",
+    "next": "12.2.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.15.11",
+    "@types/react": "18.0.35",
+    "eslint": "8.38.0",
+    "eslint-config-next": "12.2.2",
+    "typescript": "4.5.5"
+  }
+}
