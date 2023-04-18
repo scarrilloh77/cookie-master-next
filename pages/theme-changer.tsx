@@ -1,7 +1,8 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { Layout } from '../components/layouts';
 import {
+  Button,
   Card,
   CardContent,
   FormControl,
@@ -11,6 +12,7 @@ import {
   RadioGroup,
 } from '@mui/material';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const ThemeChangerPage: FC = (props) => {
   const [currentTheme, setCurrentTheme] = useState('light');
@@ -21,6 +23,16 @@ const ThemeChangerPage: FC = (props) => {
     localStorage.setItem('theme', selectedTheme); //5MB - No send to server.
     Cookies.set('theme', selectedTheme); //4Kb - AutoSend to server in requestTime.
   };
+
+  const onClick = async () => {
+    const { data } = await axios.get('/api/hello');
+    console.log({ data });
+  };
+
+  useEffect(() => {
+    console.log('localStorage =>', localStorage.getItem('theme'));
+    console.log('Cookies =>', Cookies.get('theme'));
+  }, []);
 
   return (
     <Layout>
@@ -42,6 +54,7 @@ const ThemeChangerPage: FC = (props) => {
               />
             </RadioGroup>
           </FormControl>
+          <Button onClick={onClick}>Solicitud</Button>
         </CardContent>
       </Card>
     </Layout>
