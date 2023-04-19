@@ -14,8 +14,12 @@ import {
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-const ThemeChangerPage: FC = (props) => {
-  const [currentTheme, setCurrentTheme] = useState('light');
+interface Props {
+  theme: string;
+}
+
+const ThemeChangerPage = ({ theme }: Props) => {
+  const [currentTheme, setCurrentTheme] = useState(theme);
 
   const onThemeChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedTheme = event.target.value;
@@ -61,13 +65,15 @@ const ThemeChangerPage: FC = (props) => {
   );
 };
 
+// Recordar: getServerSideProps y relacionados, solo funcionan en PAGES!!!
 // La parge no va a ser estatica, por lo tanto defino:
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   // Cuando se renderiza la page, se hace la request.
   const { theme = 'light', name = 'No name' } = req.cookies;
+  const validTheme = ['light', 'dark', 'custom'];
   return {
     props: {
-      theme,
+      theme: validTheme.includes(theme) ? theme : 'dark',
       name,
     },
   };
